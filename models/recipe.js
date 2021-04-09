@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       timeToCook: DataTypes.INTEGER,
       totalPrice: DataTypes.FLOAT,
       totalCalories: DataTypes.INTEGER,
-      isFavorite: DataTypes.BOOLEAN,
+      isFavorite: { type: DataTypes.BOOLEAN, defaultValue: false },
     },
     {
       sequelize,
