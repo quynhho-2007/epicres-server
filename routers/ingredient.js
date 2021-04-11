@@ -6,7 +6,7 @@ const router = new Router();
 //get recipes with ingredients and ???tags
 router.get("/", async (req, res, next) => {
   try {
-    const ingredients = await Ingredient.findAll({ attributes: ["title"] });
+    const ingredients = await Ingredient.findAll();
     res.json(ingredients);
   } catch (e) {
     next(e);
