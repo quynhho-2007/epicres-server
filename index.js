@@ -7,6 +7,8 @@ const loggerMiddleWare = require("morgan");
 const { PORT } = require("./config/constants");
 const authRouter = require("./routers/auth");
 const recipeRouter = require("./routers/recipe");
+const ingredientRouter = require("./routers/ingredient");
+const tagRouter = require("./routers/tag");
 const authMiddleWare = require("./auth/middleware");
 
 app.use(loggerMiddleWare("dev"));
@@ -26,6 +28,8 @@ if (process.env.DELAY) {
 
 app.use("/", authRouter);
 app.use("/recipes", recipeRouter);
+app.use("/ingredients", ingredientRouter);
+app.use("/tags", tagRouter);
 // GET endpoint for testing purposes, can be removed
 app.get("/", (req, res) => {
   res.send("Hi from express");

@@ -2,7 +2,7 @@ const { Router } = require("express");
 const authMiddleware = require("../auth/middleware");
 
 const Recipe = require("../models").recipe;
-const Order = require("../models").order;
+
 const Ingredient = require("../models").ingredient;
 const Tag = require("../models").tag;
 
