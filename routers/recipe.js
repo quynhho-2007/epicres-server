@@ -11,8 +11,12 @@ const router = new Router();
 //Get most popular recipes
 
 router.get("/popular", async (req, res) => {
+  const limit = req.query.limit || 4;
+  const offset = req.query.offset || 4;
   try {
     const popularRecipes = await Recipe.findAll({
+      limit,
+      offset,
       order: [["bought", "DESC"]],
       include: [
         { model: Ingredient, attributes: ["title"] },
