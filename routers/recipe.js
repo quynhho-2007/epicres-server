@@ -48,36 +48,36 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 //Update favorite into true
-router.put("/update/:id", async (req, res) => {
-  try {
-    const recipeToFavorite = await Recipe.findByPk(req.params.id);
-    //console.log(user);
-    if (!recipeToFavorite) {
-      res.status(404).send("recipe not found");
-    } else {
-      await recipeToFavorite.update({ isFavorite: true });
-      res.status(200).send({
-        message: "added this recipe to MyFavorites",
-        recipeToFavorite,
-      });
-    }
-  } catch {
-    console.log(error.message);
-  }
-});
+// router.put("/update/:id", async (req, res) => {
+//   try {
+//     const recipeToFavorite = await Recipe.findByPk(req.params.id);
+//     //console.log(user);
+//     if (!recipeToFavorite) {
+//       res.status(404).send("recipe not found");
+//     } else {
+//       await recipeToFavorite.update({ isFavorite: true });
+//       res.status(200).send({
+//         message: "added this recipe to MyFavorites",
+//         recipeToFavorite,
+//       });
+//     }
+//   } catch {
+//     console.log(error.message);
+//   }
+// });
 
-//get recipes with isFavorite: true
-router.get("/favorites", async (req, res, next) => {
-  try {
-    const favoriteRecipes = await Recipe.findAll({
-      where: { isFavorite: true },
-    });
-    console.log("fr", favoriteRecipes);
-    res.json(favoriteRecipes);
-  } catch (e) {
-    next(e);
-  }
-});
+// //get recipes with isFavorite: true
+// router.get("/favorites", async (req, res, next) => {
+//   try {
+//     const favoriteRecipes = await Recipe.findAll({
+//       where: { isFavorite: true },
+//     });
+//     console.log("fr", favoriteRecipes);
+//     res.json(favoriteRecipes);
+//   } catch (e) {
+//     next(e);
+//   }
+// });
 
 //get recipes with ingredients and ???tags
 router.get("/", async (req, res, next) => {
