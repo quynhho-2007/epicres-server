@@ -21,7 +21,7 @@ router.post("/login", async (req, res, next) => {
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return res.status(400).send({
-        message: "User with that email not found or password incorrect"
+        message: "User with that email not found or password incorrect",
       });
     }
 
@@ -35,16 +35,19 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post("/signup", async (req, res) => {
-  const { email, password, name } = req.body;
-  if (!email || !password || !name) {
-    return res.status(400).send("Please provide an email, password and a name");
+  const { email, password, firstName, lastName } = req.body;
+  if (!email || !password || !firstName || !lastName) {
+    return res
+      .status(400)
+      .send("Please provide an email, password, first name and last name");
   }
 
   try {
     const newUser = await User.create({
       email,
       password: bcrypt.hashSync(password, SALT_ROUNDS),
-      name
+      firstName,
+      lastName,
     });
 
     delete newUser.dataValues["password"]; // don't send back the password hash
@@ -69,7 +72,11 @@ router.post("/signup", async (req, res) => {
 router.get("/me", authMiddleware, async (req, res) => {
   // don't send back the password hash
   delete req.user.dataValues["password"];
+  console.log("user", req.user);
   res.status(200).send({ ...req.user.dataValues });
+  if (!req.user) {
+    res.status(404).send("User is unauthorized, Login/Sign-up to continue.");
+  }
 });
 
 module.exports = router;
