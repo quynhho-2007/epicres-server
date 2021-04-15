@@ -54,27 +54,28 @@ router.delete("/recipes/:id", authMiddleware, async (req, res) => {
 
 //Add a recipe to personal favorite page = Create user favorite === create a row in userRecipe table
 router.post("/recipes/:id", authMiddleware, async (req, res, next) => {
-  const userIdNeeded = req.user.id;
-  // console.log("id test user:", userIdNeeded)
-  if (!recipeIdNeeded) {
+  const userIdNeeded = parseInt(req.user.id);
+  console.log("id test user:", userIdNeeded);
+  if (!userIdNeeded) {
     res
       .status(401)
       .send("Sorry you are unauthorized, Login/Sign-up to authorize yourself");
   }
 
-  const recipeIdNeeded = parseInt(req.params.id);
-  // console.log("id test recipe:", recipeIdNeeded)
+  // const recipeIdNeeded = parseInt(req.params.id);
+  const { id } = req.params;
+  console.log("id test recipe:", id);
 
   try {
     const favorite = await UserRecipe.create({
-      recipeId: recipeIdNeeded,
+      recipeId: id,
       userId: userIdNeeded,
     });
-    // console.log("response test", favorite)
+    console.log("response test", favorite);
     if (!favorite) {
       res.status(400).send("Favorite couldn't be added, refresh and try again");
     }
-    const recipeNeeded = await Recipe.findByPk(recipeIdNeeded);
+    const recipeNeeded = await Recipe.findByPk(id);
 
     if (!recipeNeeded) {
       res.status(404).send("Recipe with that ID doesn't exist");
@@ -87,10 +88,10 @@ router.post("/recipes/:id", authMiddleware, async (req, res, next) => {
 });
 
 //get favorite recipes
-router.get("/", authMiddleware, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
-    const userIdNeeded = parseInt(req.user.id);
-    // console.log("(GET)id test user:", userIdNeeded)
+    const userIdNeeded = req.user.id;
+    console.log("(GET)id test user:", userIdNeeded);
     if (!userIdNeeded) {
       res
         .status(401)

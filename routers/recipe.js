@@ -2,11 +2,24 @@ const { Router } = require("express");
 const authMiddleware = require("../auth/middleware");
 
 const Recipe = require("../models").recipe;
-
+const User = require("../models").user;
 const Ingredient = require("../models").ingredient;
 const Tag = require("../models").tag;
+const Order = require("../models").order;
 
 const router = new Router();
+
+//testing
+// router.get("/users", async (req, res, next) => {
+//   try {
+//     const users = await User.findAll({
+//       include: [Order],
+//     });
+//     res.json(users);
+//   } catch (e) {
+//     next(e);
+//   }
+// });
 
 //Get most popular recipes
 
