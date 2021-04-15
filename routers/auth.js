@@ -7,6 +7,31 @@ const { SALT_ROUNDS } = require("../config/constants");
 
 const router = new Router();
 
+//To update user profile
+router.put("/updateprofile", authMiddleware, async (req, res) => {
+  const { email, firstName, lastName } = req.body;
+  if (!email || !firstName || !lastName) {
+    return res
+      .status(400)
+      .send("Please provide an email, password, first name and last name");
+  }
+
+  try {
+    const id = req.user.id;
+    const userToUpdate = await User.findByPk(id);
+
+    const updatedUser = await userToUpdate.update({
+      email,
+      firstName,
+      lastName,
+    });
+
+    res.status(200).send({ updatedUser });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 router.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;

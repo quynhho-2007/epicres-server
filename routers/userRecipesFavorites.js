@@ -88,7 +88,7 @@ router.post("/recipes/:id", authMiddleware, async (req, res, next) => {
 });
 
 //get favorite recipes
-router.get("/", async (req, res, next) => {
+router.get("/", authMiddleware, async (req, res, next) => {
   try {
     const userIdNeeded = req.user.id;
     console.log("(GET)id test user:", userIdNeeded);
@@ -105,7 +105,7 @@ router.get("/", async (req, res, next) => {
         id: userIdNeeded,
       },
     });
-    // console.log("response test", user)
+    console.log("response test", user);
 
     if (!user) {
       res.status(404).send("You've got no Favorites");
