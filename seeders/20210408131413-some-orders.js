@@ -6,25 +6,29 @@ module.exports = {
       "orders",
       [
         {
-          status: "processed",
+          shippingAddress: "User Address",
+          completed: true,
           userId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          status: "shipped",
+          shippingAddress: "User Address",
+          completed: true,
           userId: 2,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          status: "sent",
+          shippingAddress: "User Address",
+          completed: false,
           userId: 3,
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          status: "received",
+          shippingAddress: "User Address",
+          completed: false,
           userId: 4,
           createdAt: new Date(),
           updatedAt: new Date(),

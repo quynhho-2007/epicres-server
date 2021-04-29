@@ -17,7 +17,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   order.init(
     {
-      status: DataTypes.STRING,
+      shippingAddress: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      completed: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
     },
     {
       sequelize,
