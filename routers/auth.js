@@ -26,7 +26,8 @@ router.put("/updateprofile", authMiddleware, async (req, res) => {
       lastName,
     });
 
-    res.status(200).send({ updatedUser });
+    res.status(200).send({ ...updatedUser.dataValues });
+    console.log("datavalues user", ...updatedUser.dataValues);
   } catch (error) {
     console.log(error);
   }
