@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const corsMiddleWare = require("cors");
+// const corsMiddleWare = require("cors");
 const loggerMiddleWare = require("morgan");
 
 const { PORT } = require("./config/constants");
@@ -12,10 +12,12 @@ const tagRouter = require("./routers/tag");
 const userRecipesFavoritesRouter = require("./routers/userRecipesFavorites");
 const authMiddleWare = require("./auth/middleware");
 
+const cors = require("cors");
+app.use(cors());
 app.use(loggerMiddleWare("dev"));
 const bodyParserMiddleWare = express.json();
 app.use(bodyParserMiddleWare);
-app.use(corsMiddleWare());
+// app.use(corsMiddleWare());
 
 if (process.env.DELAY) {
   app.use((req, res, next) => {
